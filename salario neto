@@ -1,0 +1,52 @@
+
+
+Autor: Alexandra Ribera
+       Carla Arcienega
+
+#include "stdafx.h"
+#include "conio.h"
+#include<iostream>
+
+ using namespace std;
+
+ float calculo_salarioneto (float salariobruto);
+
+ void main ()
+
+ { float salariobruto,salarioneto,n,suma,salariominimo,s=0;
+   salariominimo=1440;
+
+   cout<<"Ingrese n:";
+   cin>>n;
+
+    for(int i=1;i<=n;i++)
+
+	{
+		cout<<"Ingrese salario bruto:";
+	    cin>> salariobruto;
+
+	  if(salariobruto>2*salariominimo)
+		  
+		  salarioneto=calculo_salarioneto(salariobruto);
+
+	  else
+		  salarioneto= salariobruto;
+
+	  cout<<"El salario neto es:"<< salarioneto<<endl;
+	  s=s+salarioneto;
+	}
+
+	suma=s/n;
+	cout<<"El promedio es:"<< suma;
+
+	_getch();
+ }
+
+ float calculo_salarioneto (float salariobruto)
+ 
+ {float salarioneto;
+  salarioneto=salariobruto - (salariobruto*0.251);
+
+  return (salarioneto);
+
+ }
