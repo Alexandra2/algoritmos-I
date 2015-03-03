@@ -26,7 +26,7 @@ Autor: Alexandra Ribera
 		cout<<"Ingrese salario bruto:";
 	    cin>> salariobruto;
 
-		}while(salariobruto<=0);
+		}while((salariobruto<=1400)││(salariobruto<=0));
 	  if(salariobruto>2*salariominimo)
 		  
 		  salarioneto=calculo_salarioneto(salariobruto);
