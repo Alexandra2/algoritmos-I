@@ -1,0 +1,48 @@
+
+Autor: Alexandra Ribera
+       Carla Arcienega
+
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include "math.h"
+
+using namespace std;
+
+float calculo_raizreal(float a,float b, float c, float x1, float x2);
+ 
+ void main ()
+ {float a,b,c,x1,x2;
+
+  cout<<"Ingrese valor a:";
+  cin>>a;
+  cout<<"Ingrese valor b:";
+  cin>>b;
+  cout<<"Ingrese valor c:";
+  cin>>c;
+
+  raiz= calculo_raizreal(a,b,c,x1,x2);
+
+  cout<<"La raizreal es:"<<raiz;
+
+  getch();
+ }
+
+
+float calculo_raizreal(float a,float b, float c, float x1, float x2)
+ 
+
+{ y= pow(b,2)- 4*a*c;
+    if(y>0)
+{   x1= (-b+sqrt(y))/(2*a);
+    x2= (-b-sqrt(y))/(2*a);
+    cout<<"x1="<<x1 ;
+    cout<<"x2="<<x2;
+}
+     else
+     cout<< "No son numeros reales" ;
+	
+	return (y);
+
+
+}
