@@ -21,7 +21,7 @@ string invertir (string pal);
  B= invertir(A);
  band= A.compare(B);
 
-  if(band)
+  if(band==0)
 	
   cout<<"Es palindromo:";
 
