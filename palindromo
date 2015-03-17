@@ -1,0 +1,42 @@
+
+Autor: Alexandra R
+       Carla Arcienega
+
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+string invertir (string pal);
+
+ void main()
+{string  A,B;
+ bool band;
+
+ cout<<"Ingrese pal:";
+ getline(cin,A);
+
+ B= invertir(A);
+ band= A.compare(B);
+
+  if(band)
+	
+  cout<<"Es palindromo:";
+
+  getch();
+	
+}
+
+ string invertir (string pal)
+ { int TAM,aux;
+   string T;
+   TAM = pal.length();
+
+    for(int i=0;i<TAM/2;i++)
+	{aux= pal.at(TAM-i-1);
+	 pal.at(TAM-i-1)= aux;
+	}
+	 return pal;
+ }
