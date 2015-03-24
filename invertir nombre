@@ -18,7 +18,7 @@ void main ()
 
  { 
 
- const int total = 1;
+ const int total = 5;
 
  string nombres[total], nombre, apellido;
 
