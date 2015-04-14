@@ -1,0 +1,205 @@
+Autor: Alexandra Ribera
+       Carla Arcienega
+       
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+#include "conio.h"
+#include <sstream>
+#define N 1000
+#define AFP 0.121
+#define IVA 0.13
+#define MINIMO 1600
+
+using namespace std;
+
+struct Empleado_t
+{
+	int id;
+	string nombre, fecha_nac;
+	float sb, sn;
+};
+
+void cargar_empleado(Empleado_t v[], int &tam);
+bool buscar_empleado(Empleado_t v[], int tam, int id, int &pos);
+float calcular_salario_neto(float salario_bruto);
+void clasificar_burbuja(Empleado_t v[], int tam);
+void mostrar_listado(Empleado_t v[], int tam);
+
+float calcular_salario_neto(float salario_bruto)
+{
+	float neto = salario_bruto * 0.87;
+	return neto;
+}
+
+void cargar_empleado(Empleado_t v[], int &tam)
+{
+	int pos_encontrado;
+	do
+	{
+		cout << "Introduzca el Id del empleado: ";
+		cin >> v[tam].id;
+		cin.ignore(1);
+	}
+	while (buscar_empleado(v, tam, v[tam].id, pos_encontrado) == true);
+	
+	cout << "Introduzca el Nombre del empleado: ";
+	getline(cin, v[tam].nombre);
+
+	cout << "Introduzca una Fecha de nacimiento:  ";
+	getline(cin, v[tam].fecha_nac);
+
+	cout << "Introduzca el salario bruto: ";
+	cin >> v[tam].sb;
+
+	v[tam].sn = calcular_salario_neto(v[tam].sb);
+
+	tam = tam + 1;
+}
+
+bool buscar_empleado(Empleado_t v[], int tam, int id_buscado, int &pos)
+{
+	for(int i = 0; i < tam; i++)
+	{
+		if (v[i].id == id_buscado)
+		{
+			pos = i;
+			return true;
+		}
+	}
+	return false;
+}
+
+float calcular_promedio(Empleado_t v[], int tam)
+{
+	float suma = 0;
+
+	for(int i = 0; i < tam; i++)
+	{
+		suma = suma + v[i].sn;
+	}
+
+	float promedio = suma / tam;
+
+	return promedio;
+}
+
+void clasificar_burbuja(Empleado_t v[], int tam)
+{
+	int i, j;
+	Empleado_t aux;
+
+	for(i = 0; i < tam-1; i++)
+	{
+		for(j = 1; j < tam; j++)
+		{
+			if (v[j-1].sn < v[j].sn)
+			{
+				aux = v[j];
+				v[j] = v[j-1];
+				v[j-1] = aux;
+			}
+		}
+	}
+}
+
+void mostrar_listado(Empleado_t v[], int tam)
+{
+	cout << "\t  Planilla de Sueldos\n";
+	cout << "=========================\n\n";
+	cout << "Cod  Nombre\n";
+	cout << "=========================\n\n";
+	cout<<"\t  Fecha de nacimiento\n";
+	cout << "=========================\n\n";
+	cout<<"\t id\n";
+	cout << "=========================\n\n";
+	cout<<"\t salario bruto\n";
+	cout << "=========================\n\n";
+	cout<<"\t salario neto\n";
+
+
+
+
+	for (int  i = 0; i < tam; i++)
+	{
+		cout << v[i].id << "\t";
+		cout << v[i].nombre << "\t";
+		cout << v[i].fecha_nac << "\t";
+		cout << v[i].sb << "\t";
+		cout << v[i].sn << "\n";
+	}
+	cout << "Promedio Salarios Netos : " << calcular_promedio(v, tam) << endl << endl;
+}
+
+
+//El cuerpo principal
+
+void main()
+{
+	// declaracion de variables
+	Empleado_t empleados[N];
+	int tam = 0, opcion;
+
+	do
+	{
+		//MENU
+		//se muestran las opciones del menu
+		cout<<"******* M E N U *********"; 
+		cout<<endl<<"1.- Ingresar Empleado:"; 
+		cout<<endl<<"2.- Clasificar Empleado:"; 
+		cout<<endl<<"3.- Buscar Empleado"; 
+		cout<<endl<<"4.- Listar Planilla"; 
+		cout<<endl<<"0.- Salir"; 
+
+		cout<<endl<<"Seleccionar opcion: "; 
+		cin >> opcion; 
+
+		switch(opcion)
+		{
+			//determina de acuerdo a la opcion que debe ejecutarse
+			case 1:	
+			{
+				cargar_empleado(empleados, tam);
+				cout << "- Se ingreso el empleado correctamente.\n\n";
+				break;
+			}
+			case 2: 
+			{
+				clasificar_burbuja(empleados, tam);
+				cout << "- Se ordenaron los empleados.\n\n";
+				break;
+			}
+			case 3:
+			{
+				int codigo;
+				cout << "Ingrese el codigo a buscar: ";
+				cin >> codigo;
+				
+				int pos;
+				bool encontro_empleado = buscar_empleado(empleados, tam, codigo, pos);
+				if (encontro_empleado == true) 
+				{
+					cout << "\tCodigo: " << empleados[pos].id << endl;
+					cout << "\tNombre: "<< empleados[pos].nombre << endl;
+					cout << "\tFecha de nacimiento: "<< empleados[pos].fecha_nac << endl;
+					cout<<  "\tSalario bruto: " << empleados[pos].sb << endl;
+					cout<<  "\tSalario neto: " << empleados[pos].sn << endl << endl;
+				}
+				else 
+				{
+					cout << "No existe el codigo del empleado." << endl << endl;
+				}
+				break;
+			}
+			case 4:
+			{
+				mostrar_listado(empleados, tam);
+				_getch();
+			}
+		}
+	}
+	while (opcion !=0); 
+
+	_getch();
+}
+
