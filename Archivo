@@ -1,0 +1,70 @@
+Alexandra Ribera & Carla Arcienega 
+#include "stdafx.h"
+#include "stdio.h"
+#include <string>
+#include "conio.h"
+#include <iostream>
+
+using namespace std;
+struct tipo_registro
+{
+    int no_prod;
+    string descrip;
+    int cantidad;
+    float precio;
+    char garantia;
+};
+
+tipo_registro Registro;
+FILE *alias;
+void ALTA_SECUENCIAL();
+
+void main()
+{
+    ALTA_SECUENCIAL();
+}
+
+void ALTA_SECUENCIAL ()
+{
+    int no_prod;
+    cout<<"\n\rALTAS DE REGISTRO DE PRODUCTOS";
+    alias=fopen("PRODUCTO.SEC","rb+");
+    
+    if (alias=NULL)
+        alias=fopen("PRODUCTO.SEC","wb");
+
+    cout<<"\n\n\n\rNumero de producto: ";
+    cin>>no_prod;
+    fread(&Registro,sizeof(Registro),1,alias);
+    while(!feof(alias))
+    
+    {
+        if(Registro.no_prod==no_prod)
+        {
+            cout<<"\n\n\n\rRegistro duplicado !!!";
+            fclose(alias);
+            getch();
+            return;
+        }
+
+        fread(&Registro,sizeof(Registro),1,alias);
+    }
+    cout<<"\n\rDescripcion: ";
+    cin.ignore();
+    getline(cin,Registro.descrip);
+    cout<<"\n\rPrecio: ";
+    cin>>Registro.precio;
+    do
+    {
+        cout<<"\n\rGarantia:";
+        Registro.garantia=toupper(getche());
+    }
+    while (Registro.garantia!='S'&& Registro.garantia!='N');
+    Registro.no_prod=no_prod;
+    fwrite(&Registro,sizeof(Registro),1,alias);
+    fclose(alias);
+    cout<<"\n\n\n\rProducto registrado !!!";
+    cout<<"\n\r<<< Oprima cualquier tecla para continuar>>>";
+    getch();
+    return;
+}
